@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SyntaxStudios Platform
 
-## Getting Started
+## Übersicht
+**SyntaxStudios** ist eine moderne Plattform und Unternehmens-Webseite, entwickelt auf Basis von Next.js, React und TailwindCSS.
 
-First, run the development server:
+## Projektstruktur & Architektur
+- `src/app/`: Next.js App-Router Struktur mit Seiten und Layouts.
+- `public/`: Öffentliche Ressourcen, Icons und Konfigurationsdateien.
+- `tailwind.config.ts` & `postcss.config.mjs`: Konfiguration des Visual-Design-Systems.
+- `tsconfig.json`: TypeScript-Kompilierungsvorgaben.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Hauptfunktionalitäten
+- **Server-Side Rendering (SSR)**: Optimierte Performance und SEO-Struktur.
+- **Dunkles Design-System**: Moderne Visuelle Aufbereitung mit TailwindCSS.
+- **Werbe-Integration**: Vorbereitung für Monetarisierung über `app-ads.txt`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Ausführung & Nutzung
+Der lokale Entwicklungsserver wird mit `npm run dev` im Projektverzeichnis gestartet.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Lizenz
+Dieses Projekt steht unter der MIT-Lizenz.
