@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KIMBRANDESIGN — Branding with soul, strategy & impact</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark: #141414;
+            --white: #f8f7f4;
+            --off-white: #eeede8;
+            --gray: #888;
+            --gray-light: #bbb;
+            --accent: #f5c518;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --font-script: 'Caveat', cursive;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--black);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.1s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 1.5px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease-out, width 0.3s, height 0.3s, border-color 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-ring.hover {
+            width: 60px;
+            height: 60px;
+            border-color: var(--accent);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 24px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            mix-blend-mode: difference;
+            transition: opacity 0.4s;
+        }
+
+        nav .logo {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.02em;
+            text-decoration: none;
+        }
+
+        nav .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        nav .nav-links a {
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            position: relative;
+            transition: opacity 0.3s;
+        }
+
+        nav .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        nav .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        nav .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-btn span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        .menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(4px, 4px);
+        }
+
+        .menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(4px, -4px);
+        }
+
+        /* Mobile Nav Overlay */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--black);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .nav-overlay ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-overlay ul li {
+            margin: 20px 0;
+        }
+
+        .nav-overlay ul a {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-overlay ul a:hover {
+            opacity: 0.5;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--black);
+            margin-bottom: 8px;
+        }
+
+        .hero-visual {
+            width: clamp(140px, 18vw, 240px);
+            height: clamp(100px, 12vw, 160px);
+            margin: 32px auto;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-visual-inner {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #7ecbce, #e8633a, #f0a04b, #89c9cc);
+            background-size: 300% 300%;
+            animation: heroGradient 8s ease infinite;
+        }
+
+        @keyframes heroGradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: var(--black);
+            margin-top: 16px;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-scroll span {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        .hero-scroll .line {
+            width: 1px;
+            height: 48px;
+            background: var(--gray);
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        /* 3D Canvas */
+        #canvas3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Section base */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--white);
+            padding: 160px 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .about-left {
+            position: relative;
+        }
+
+        .about-photo-frame {
+            position: relative;
+            width: 85%;
+            max-width: 400px;
+        }
+
+        .about-photo-accent {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            transform: rotate(3deg);
+            z-index: 0;
+        }
+
+        .about-photo {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #ddd;
+            overflow: hidden;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+        }
+
+        .about-script {
+            font-family: var(--font-script);
+            font-size: clamp(1.4rem, 2.5vw, 2rem);
+            color: var(--black);
+            margin-top: 40px;
+            line-height: 1.4;
+        }
+
+        .about-right {
+            padding-top: 40px;
+        }
+
+        .about-line {
+            width: 1px;
+            height: 60px;
+            background: var(--black);
+            margin-bottom: 24px;
+        }
+
+        .about-studio {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--gray);
+            max-width: 440px;
+        }
+
+        .about-studio p {
+            margin-bottom: 16px;
+        }
+
+        .about-studio strong {
+            color: var(--black);
+            font-weight: 500;
+        }
+
+        .about-signature {
+            font-family: var(--font-script);
+            font-size: 2rem;
+            margin-top: 32px;
+            color: var(--black);
+        }
+
+        /* Services */
+        .services {
+            background: var(--white);
+            padding: 120px 48px 160px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+
+        .services-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .services-script {
+            font-family: var(--font-script);
+            font-size: 1.4rem;
+            color: var(--gray);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 48px 32px;
+            transition: background 0.4s, color 0.4s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .service-card:hover .service-num {
+            color: var(--accent);
+        }
+
+        .service-card:hover .service-name {
+            color: var(--white);
+        }
+
+        .service-card:hover .service-desc {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .service-num {
+            font-family: var(--font-heading);
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-bottom: 24px;
+            transition: color 0.4s;
+        }
+
+        .service-name {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            transition: color 0.4s;
+        }
+
+        .service-desc {
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--gray);
+            transition: color 0.4s;
+        }
+
+        /* Work / Portfolio */
+        .work {
+            background: var(--white);
+            padding: 0 48px 160px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .work-header {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 700;
+            margin-bottom: 80px;
+            line-height: 1;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .work-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            group: true;
+        }
+
+        .work-item:nth-child(odd) {
+            margin-top: 60px;
+        }
+
+        .work-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            background: #e0e0e0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .work-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s;
+        }
+
+        .work-item:hover .work-img img {
+            transform: scale(1.05);
+        }
+
+        .work-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.4s;
+            display: flex;
+            align-items: flex-end;
+            padding: 32px;
+        }
+
+        .work-item:hover .work-overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .work-overlay-text {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .work-item:hover .work-overlay-text {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .work-overlay-text h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 4px;
+        }
+
+        .work-overlay-text span {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .work-tags {
+            margin-top: 16px;
+            font-family: var(--font-script);
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Team */
+        .team {
+            background: var(--white);
+            padding: 80px 48px 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .team-names {
+            font-family: var(--font-body);
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 300;
+            line-height: 1.15;
+            color: rgba(0, 0, 0, 0.08);
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+            animation: scrollNames 20s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes scrollNames {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .team-note {
+            position: relative;
+            display: inline-block;
+            background: var(--accent);
+            padding: 40px 32px;
+            margin-top: -80px;
+            max-width: 280px;
+            text-align: left;
+            z-index: 2;
+        }
+
+        .team-note p {
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .team-note .script {
+            font-family: var(--font-script);
+            font-size: 1.1rem;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--off-white);
+            padding: 120px 48px;
+        }
+
+        .testimonials-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .testimonials-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 80px;
+            line-height: 1.1;
+        }
+
+        .testimonial-slider {
+            display: flex;
+            gap: 48px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 20px;
+        }
+
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial-card {
+            min-width: 380px;
+            max-width: 420px;
+            scroll-snap-align: start;
+            flex-shrink: 0;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            color: var(--black);
+        }
+
+        .testimonial-author {
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .testimonial-role {
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 4px;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--dark);
+            color: var(--white);
+            padding: 160px 48px;
+        }
+
+        .faq-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        .faq-title-block {
+            text-align: center;
+            flex: 1;
+        }
+
+        .faq-title {
+            font-family: var(--font-heading);
+            font-size: clamp(5rem, 12vw, 10rem);
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.04em;
+        }
+
+        .faq-subtitle {
+            font-family: var(--font-script);
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--white);
+            margin-top: 8px;
+        }
+
+        .faq-doodle {
+            font-family: var(--font-script);
+            font-size: 3rem;
+            position: absolute;
+            left: 5%;
+            top: 60%;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .faq-list {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 0;
+            cursor: pointer;
+            transition: color 0.3s;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--accent);
+        }
+
+        .faq-question h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            font-weight: 300;
+            transition: transform 0.4s;
+            flex-shrink: 0;
+            margin-left: 24px;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 28px;
+        }
+
+        .faq-answer p {
+            font-size: 0.82rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.45);
+            max-width: 600px;
+        }
+
+        .faq-answer p+p {
+            margin-top: 12px;
+        }
+
+        /* Contact / CTA */
+        .contact {
+            background: var(--dark);
+            padding: 80px 48px 40px;
+            text-align: center;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 18px 48px;
+            transition: all 0.4s;
+        }
+
+        .contact-btn:hover {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            padding: 60px 48px 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        footer a {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--white);
+        }
+
+        /* Gradient divider */
+        .gradient-divider {
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent), #e8633a, #7ecbce, var(--accent));
+            background-size: 200% 100%;
+            animation: gradientSlide 6s linear infinite;
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 24px;
+            }
+
+            nav .nav-links {
+                display: none;
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                padding: 100px 24px;
+                gap: 48px;
+            }
+
+            .services {
+                padding: 80px 24px 100px;
+            }
+
+            .services-header {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work {
+                padding: 0 24px 100px;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-item:nth-child(odd) {
+                margin-top: 0;
+            }
+
+            .team {
+                padding: 60px 24px 80px;
+            }
+
+            .testimonials {
+                padding: 80px 24px;
+            }
+
+            .testimonial-card {
+                min-width: 280px;
+            }
+
+            .faq {
+                padding: 100px 24px;
+            }
+
+            .faq-header {
+                flex-direction: column;
+            }
+
+            .faq-doodle {
+                display: none;
+            }
+
+            .contact {
+                padding: 60px 24px 30px;
+            }
+
+            footer {
+                padding: 40px 24px 24px;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <canvas id="canvas3d"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">KIMBRANDESIGN</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#work">Work</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Overlay -->
+    <div class="nav-overlay" id="navOverlay">
+        <ul>
+            <li><a href="#about" class="nav-close">About</a></li>
+            <li><a href="#services" class="nav-close">Services</a></li>
+            <li><a href="#work" class="nav-close">Work</a></li>
+            <li><a href="#team" class="nav-close">Team</a></li>
+            <li><a href="#faq" class="nav-close">FAQ</a></li>
+            <li><a href="#contact" class="nav-close">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title reveal">KIMBRANDESIGN</h1>
+            <div class="hero-visual reveal reveal-delay-1">
+                <div class="hero-visual-inner"></div>
+            </div>
+            <p class="hero-subtitle reveal reveal-delay-2">Branding with soul, strategy &amp; impact</p>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="line"></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="about-left reveal">
+            <div class="about-photo-frame">
+                <div class="about-photo-accent"></div>
+                <div class="about-photo">
+                    <img src="assets/Bildschirmfoto_2026-05-02_um_16_26_01.png" alt="Kim Sentis" />
+                </div>
+            </div>
+            <p class="about-script" style="margin-top: 40px;">Shaping the beauty<br>of everyday brands</p>
+        </div>
+        <div class="about-right reveal reveal-delay-1">
+            <div class="about-line"></div>
+            <div class="about-studio">
+                <p><strong>KIMBRANDESIGN is a strategic brand transformation studio led by Kim Sentis.</strong></p>
+                <p>With over 15 years of experience in cosmetics, branding and marketing, Kim partners with brand
+                    leaders to clarify vision, unlock new positioning and guide meaningful transformation.</p>
+                <p>Combining strategic clarity, emotional intelligence and creative leadership, KBD helps brands express
+                    who they truly are – clearly, consistently and beautifully.</p>
+                <p>We often work with brands at pivotal moments – when they need to redefine who they are and where they
+                    are going.</p>
+                <p>Our hybrid model allows us to assemble tailor-made teams around each project, delivering the
+                    strategic depth of a consultancy with the creative impact of a leading agency.</p>
+            </div>
+            <div class="about-signature">Kim ++</div>
+        </div>
+    </section>
+
+    <div class="gradient-divider"></div>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="services-header reveal">
+            <h2 class="services-title">Our<br>Services</h2>
+            <span class="services-script">What we do best</span>
+        </div>
+        <div class="services-grid">
+            <div class="service-card reveal">
+                <div class="service-num">01</div>
+                <h3 class="service-name">Brand Strategy</h3>
+                <p class="service-desc">Vision clarity, positioning, brand architecture and strategic roadmaps that
+                    align teams and unlock growth.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-num">02</div>
+                <h3 class="service-name">Visual Identity</h3>
+                <p class="service-desc">Key visuals, motion design, packaging design and brand expression systems built
+                    for consistency and impact.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-2">
+                <div class="service-num">03</div>
+                <h3 class="service-name">Packaging Design</h3>
+                <p class="service-desc">Structural and graphic packaging solutions that elevate shelf presence and
+                    embody brand truth.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-3">
+                <div class="service-num">04</div>
+                <h3 class="service-name">Retail Experience</h3>
+                <p class="service-desc">In-store activation, merchandising concepts and visual storytelling that create
+                    memorable brand moments.</p>
+            </div>
+            <div class="service-card reveal">
+                <div class="service-num">05</div>
+                <h3 class="service-name">Digital Content</h3>
+                <p class="service-desc">Digital campaigns, social content and sales materials crafted to extend brand
+                    narrative across touchpoints.</p>
+            </div>
+            <div class="service-card reveal reveal-delay-1">
+                <div class="service-num">06</div>
+                <h3 class="service-name">Creative Direction</h3>
+                <p class="service-desc">End-to-end creative leadership ensuring every expression is on-brand, elevated
+                    and emotionally resonant.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work -->
+    <section class="work" id="work">
+        <h2 class="work-header reveal">Our work</h2>
+        <div class="work-grid">
+            <div class="work-item reveal">
+                <div class="work-img">
+                    <img src="assets/Bildschirmfoto_2026-05-02_um_16_29_26.png" alt="Project" />
+                    <div class="work-overlay">
+                        <div class="work-overlay-text">
+                            <h3>Tissot</h3>
+                            <span>Visual Merchandising &middot; Retail</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-tags">#visual merchandising #concept #storytelling #retail experience</div>
+            </div>
+            <div class="work-item reveal reveal-delay-1">
+                <div class="work-img">
+                    <img src="assets/Bildschirmfoto_2026-05-02_um_16_30_24.png" alt="Project" />
+                    <div class="work-overlay">
+                        <div class="work-overlay-text">
+                            <h3>Brand Refresh</h3>
+                            <span>Strategy &middot; Identity</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-tags">#brand strategy #identity #positioning</div>
+            </div>
+            <div class="work-item reveal">
+                <div class="work-img">
+                    <img src="assets/Bildschirmfoto_2026-05-02_um_16_29_34.png" alt="Project" />
+                    <div class="work-overlay">
+                        <div class="work-overlay-text">
+                            <h3>Discover More</h3>
+                            <span>Packaging &middot; Design</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-tags">#packaging #illustration #concept</div>
+            </div>
+            <div class="work-item reveal reveal-delay-1">
+                <div class="work-img">
+                    <img src="assets/Bildschirmfoto_2026-05-02_um_16_25_50.png" alt="Project" />
+                    <div class="work-overlay">
+                        <div class="work-overlay-text">
+                            <h3>Creative Direction</h3>
+                            <span>Cosmetics &middot; Launch</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-tags">#creative direction #launch #cosmetics</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <div style="overflow:hidden;width:100%;">
+            <div class="team-names">
+                Anne &nbsp; Stéphane &nbsp; Cécile &nbsp; Florence &nbsp; Zoé &nbsp; Guillaume &nbsp; Anne &nbsp;
+                Stéphane &nbsp; Cécile &nbsp; Florence &nbsp; Zoé &nbsp; Guillaume &nbsp;
+            </div>
+        </div>
+        <div class="team-note reveal">
+            <p>A tailored team for each project.</p>
+            <span class="script">Always led by Kim</span>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-inner">
+            <h2 class="testimonials-title reveal">In their<br>words</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-card reveal">
+                    <p class="testimonial-quote">"Kim brought a rare combination of strategic depth and creative
+                        sensitivity. She understood our brand DNA immediately and helped us evolve without losing our
+                        soul."</p>
+                    <div class="testimonial-author">Marie Laurent</div>
+                    <div class="testimonial-role">Brand Director, Cosmetics Group</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-1">
+                    <p class="testimonial-quote">"Working with KBD felt like a true partnership. They challenged us in
+                        the best way, and the result was a brand we're genuinely proud of."</p>
+                    <div class="testimonial-author">Thomas Berger</div>
+                    <div class="testimonial-role">CEO, Heritage Brand</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-2">
+                    <p class="testimonial-quote">"The level of care and precision in every detail was extraordinary.
+                        From strategy to execution, every touchpoint was considered and beautiful."</p>
+                    <div class="testimonial-author">Sophie Durand</div>
+                    <div class="testimonial-role">Marketing VP, Luxury Retail</div>
+                </div>
+                <div class="testimonial-card reveal reveal-delay-3">
+                    <p class="testimonial-quote">"Kim's ability to listen deeply and translate complex ideas into clear,
+                        compelling brand expressions is unmatched. A transformative experience."</p>
+                    <div class="testimonial-author">Pierre Moreau</div>
+                    <div class="testimonial-role">Innovation Director, FMCG</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="faq-inner">
+            <div class="faq-header reveal">
+                <div class="faq-doodle">?!?</div>
+                <div class="faq-title-block">
+                    <h2 class="faq-title">FAQ</h2>
+                    <p class="faq-subtitle">Our approach</p>
+                </div>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Do you work on brand strategy and large-scale projects?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. We partner with brands on strategic transformation — from positioning and architecture
+                            to creative expression across all touchpoints. Our model is built for scale.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Are you specialised in packaging?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Packaging is one of our core strengths. We design structural and graphic packaging that
+                            elevates shelf presence while staying true to brand essence.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Do you work beyond packaging?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Our expertise spans brand strategy, visual identity, retail experience, digital
+                            content, and creative direction. We take a holistic view of brand expression.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Do you collaborate with R&D or innovation teams?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We frequently collaborate with R&D and innovation teams to ensure brand strategy is embedded
+                            from the earliest stages of product development.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Are you a large agency?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We are a highly expert and agile structure, surrounding ourselves with bespoke talents
+                            depending on each project's scale and complexity.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>What differentiates you from a traditional agency?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our founder-led model ensures senior involvement at every stage. We combine the strategic
+                            depth of a consultancy with the creative excellence of a top agency — without the overhead.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>What is your working process?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We begin with deep listening and strategic immersion, then move through iterative creative
+                            development with continuous client collaboration, ending with polished delivery and brand
+                            guidelines.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Do you work with responsible brands?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We are drawn to brands with purpose. Responsibility and positive impact are values we share
+                            and actively seek in our partnerships.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>Do you work internationally?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. We work with global brands across markets, adapting strategy and design to cultural
+                            contexts while maintaining brand coherence.</p>
+                    </div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-question">
+                        <h3>How do you embody your values beyond client projects?</h3>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our commitment extends beyond brand strategy. Through initiatives like The Providence Club,
+                            we create spaces for dialogue between leaders, creatives and innovators around the positive
+                            transformation of brands.</p>
+                        <p>We also contribute to events and reflections on the future of branding – fostering a more
+                            human, conscious and inspired ecosystem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <div class="contact" id="contact">
+        <a href="#" class="contact-btn reveal">Contact Us</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#">Legals</a>
+            <a href="#">Site by Ocitocine</a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // ============================================================
+        // Custom Cursor
+        // ============================================================
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.12;
+            ringY += (mouseY - ringY) * 0.12;
+            ring.style.transform = `translate(${ringX - 20}px, ${ringY - 20}px)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .faq-question, .service-card, .work-item').forEach(el => {
+            el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+            el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+        });
+
+        // ============================================================
+        // Mobile Menu
+        // ============================================================
+        const menuBtn = document.getElementById('menuBtn');
+        const navOverlay = document.getElementById('navOverlay');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-close').forEach(a => {
+            a.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+        });
+
+        // ============================================================
+        // FAQ Accordion
+        // ============================================================
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                const wasActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!wasActive) item.classList.add('active');
+            });
+        });
+
+        // ============================================================
+        // Scroll Reveal
+        // ============================================================
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ============================================================
+        // Three.js Background - Floating Particles
+        // ============================================================
+        (function () {
+            const canvas = document.getElementById('canvas3d');
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.z = 30;
+
+            // Particles
+            const count = 600;
+            const positions = new Float32Array(count * 3);
+            const velocities = [];
+
+            for (let i = 0; i < count; i++) {
+                positions[i * 3] = (Math.random() - 0.5) * 60;
+                positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+                positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+                velocities.push({
+                    x: (Math.random() - 0.5) * 0.008,
+                    y: (Math.random() - 0.5) * 0.008,
+                    z: (Math.random() - 0.5) * 0.005
+                });
+            }
+
+            const geometry = new THREE.BufferGeometry();
+            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+            const material = new THREE.PointsMaterial({
+                size: 0.08,
+                color: 0x888888,
+                transparent: true,
+                opacity: 0.4,
+                sizeAttenuation: true
+            });
+
+            const points = new THREE.Points(geometry, material);
+            scene.add(points);
+
+            // Floating Torus shapes
+            const torusGeo = new THREE.TorusGeometry(2, 0.4, 16, 32);
+            const torusMat = new THREE.MeshBasicMaterial({ color: 0xf5c518, wireframe: true, transparent: true, opacity: 0.07 });
+            const torus1 = new THREE.Mesh(torusGeo, torusMat);
+            torus1.position.set(-12, 8, -10);
+            scene.add(torus1);
+
+            const torus2Geo = new THREE.TorusGeometry(1.5, 0.3, 16, 32);
+            const torus2Mat = new THREE.MeshBasicMaterial({ color: 0xe8633a, wireframe: true, transparent: true, opacity: 0.05 });
+            const torus2 = new THREE.Mesh(torus2Geo, torus2Mat);
+            torus2.position.set(14, -6, -8);
+            scene.add(torus2);
+
+            // Floating Ring
+            const ringGeo = new THREE.RingGeometry(3, 3.3, 64);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x7ecbce, side: THREE.DoubleSide, transparent: true, opacity: 0.06 });
+            const ring3d = new THREE.Mesh(ringGeo, ringMat);
+            ring3d.position.set(8, 10, -15);
+            scene.add(ring3d);
+
+            let scrollY = 0;
+            window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const pos = geometry.attributes.position.array;
+                for (let i = 0; i < count; i++) {
+                    pos[i * 3] += velocities[i].x;
+                    pos[i * 3 + 1] += velocities[i].y;
+                    pos[i * 3 + 2] += velocities[i].z;
+
+                    if (Math.abs(pos[i * 3]) > 30) velocities[i].x *= -1;
+                    if (Math.abs(pos[i * 3 + 1]) > 30) velocities[i].y *= -1;
+                    if (Math.abs(pos[i * 3 + 2]) > 15) velocities[i].z *= -1;
+                }
+                geometry.attributes.position.needsUpdate = true;
+
+                const t = Date.now() * 0.001;
+                torus1.rotation.x = t * 0.15;
+                torus1.rotation.y = t * 0.1;
+                torus2.rotation.x = t * 0.12;
+                torus2.rotation.z = t * 0.08;
+                ring3d.rotation.x = t * 0.05;
+                ring3d.rotation.y = t * 0.1;
+
+                camera.position.y = -scrollY * 0.005;
+                camera.rotation.x = scrollY * 0.00003;
+
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+
+        // ============================================================
+        // Smooth scroll for nav links
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
